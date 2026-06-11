@@ -3,7 +3,7 @@
     <fullName>Postal_Code__c</fullName>
     <externalId>false</externalId>
     <label>郵便番号</label>
-    <length>255</length>
+    <length>8</length>
     <required>false</required>
     <trackTrending>false</trackTrending>
     <type>Text</type>

@@ -5,7 +5,7 @@
     <label>取引先責任者</label>
     <referenceTo>Contact</referenceTo>
     <relationshipLabel>配送管理</relationshipLabel>
-    <relationshipName>ShipmentContacts_Shipment</relationshipName>
+    <relationshipName>ShipmentContacts</relationshipName>
     <required>false</required>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

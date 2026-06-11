@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ShipmentList</fullName>
+    <columns>NAME</columns>
+    <columns>EC_Order__c</columns>
+    <columns>OrderNumber__c</columns>
+    <columns>Status__c</columns>
+    <columns>DeliveryDate__c</columns>
+    <columns>Shipping_Date__c</columns>
+    <columns>Tracking_URL__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>配達手続き中の商品</label>
+</ListView>
