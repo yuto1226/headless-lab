@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>actOpportunityReviewAgent</name>
+        <label>actOpportunityReviewAgent</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actionName>OpportunityReviewAgent</actionName>
+        <actionType>generateAiAgentResponse</actionType>
+        <connector>
+            <targetReference>sendSlackMessage</targetReference>
+        </connector>
+        <dataTypeMappings>
+            <apexClass>AgentInvAction__AIAgentCompositeDefault</apexClass>
+            <typeName>U__agentResponseApex</typeName>
+        </dataTypeMappings>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>userMessage</name>
+            <value>
+                <stringValue>{!frmUserMessage}</stringValue>
+            </value>
+        </inputParameters>
+        <nameSegment>OpportunityReviewAgent</nameSegment>
+        <offset>0</offset>
+        <outputParameters>
+            <assignToReference>varAgentResponse</assignToReference>
+            <name>agentResponse</name>
+        </outputParameters>
+        <versionString>1.1.0</versionString>
+    </actionCalls>
+    <actionCalls>
+        <name>sendSlackMessage</name>
+        <label>sendSlackMessage</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actionName>SendMessageToSlackChannel</actionName>
+        <actionType>slackFlow</actionType>
+        <connector>
+            <targetReference>updOpportunityAfterSlackPost</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>channelId</name>
+            <value>
+                <elementReference>$Record.SlackChannelId__c</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>message</name>
+            <value>
+                <elementReference>frmExtractMessage</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>SendMessageToSlackChannel</nameSegment>
+        <offset>0</offset>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <apiVersion>66.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <description>商談の更新時にOpportunityReviewAgentを実行して、商談サマリを作成する。
+Slackへ商談サマリを投稿する。
+商談レコードへ商談サマリを更新する。</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>frmExtractMessage</name>
+        <dataType>String</dataType>
+        <expression>SUBSTITUTE(
+  SUBSTITUTE(
+    MID(
+      {!varAgentResponse},
+      FIND(&apos;&quot;message&quot; : &quot;&apos;, {!varAgentResponse}) + LEN(&apos;&quot;message&quot; : &quot;&apos;),
+      FIND(
+        &apos;&quot;,&apos;,
+        {!varAgentResponse},
+        FIND(&apos;&quot;message&quot; : &quot;&apos;, {!varAgentResponse}) + LEN(&apos;&quot;message&quot; : &quot;&apos;)
+      ) - (
+        FIND(&apos;&quot;message&quot; : &quot;&apos;, {!varAgentResponse}) + LEN(&apos;&quot;message&quot; : &quot;&apos;)
+      )
+    ),
+    &apos;\n&apos;,
+    BR()
+  ),
+  &apos; &apos;,
+  &apos; &apos;
+)</expression>
+    </formulas>
+    <formulas>
+        <name>frmUserMessage</name>
+        <dataType>String</dataType>
+        <expression>&quot;次の商談をレビューしてください。&quot; &amp;
+BR() &amp; BR() &amp;
+&quot;商談名: &quot; &amp; $Record.Name &amp; BR() &amp;
+&quot;取引先名: &quot; &amp; {!$Record.Account.Name} &amp; BR() &amp;
+&quot;ステージ: &quot; &amp; TEXT($Record.StageName) &amp; BR() &amp;
+&quot;金額: &quot; &amp; IF(ISBLANK($Record.Amount), &quot;未設定&quot;, TEXT($Record.Amount)) &amp; BR() &amp;
+&quot;確度: &quot; &amp; IF(ISBLANK($Record.Probability), &quot;未設定&quot;, TEXT($Record.Probability)) &amp; BR() &amp;
+&quot;次回アクション: &quot; &amp; BLANKVALUE($Record.NextStep, &quot;未設定&quot;) &amp; BR() &amp;
+&quot;顧客課題: &quot; &amp; BLANKVALUE($Record.Description, &quot;未記載&quot;) &amp; BR() &amp; BR() &amp;
+&quot;Slackに投稿する前提で、簡潔に整理してください。&quot;</expression>
+    </formulas>
+    <interviewLabel>Opportunity_Update_Generate_Summarty_And_Post_To_Slack {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Opportunity_Update_Generate_Summarty_And_Post_To_Slack</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>updOpportunityAfterSlackPost</name>
+        <label>updOpportunityAfterSlackPost</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <inputAssignments>
+            <field>LastAgentSummary__c</field>
+            <value>
+                <elementReference>frmExtractMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>StageName</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>SlackChannelId__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>Opportunity</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <scheduledPaths>
+            <connector>
+                <targetReference>actOpportunityReviewAgent</targetReference>
+            </connector>
+            <pathType>AsyncAfterCommit</pathType>
+        </scheduledPaths>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>varAgentResponse</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>
