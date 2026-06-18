@@ -74,12 +74,6 @@ variables:
     criticalCaseCreationConfirmed: mutable boolean = False
         description: "Stores whether the user has confirmed critical case creation after reviewing the order number and inquiry details."
         visibility: "Internal"
-    criticalCaseCreated: mutable boolean = False
-        description: "Stores whether the critical case creation flow created a case."
-        visibility: "Internal"
-    criticalCaseNumber: mutable string = ""
-        description: "Stores the case number returned by the critical case creation flow."
-        visibility: "Internal"
 
 language:
     additional_locales: "en_GB"
@@ -355,8 +349,6 @@ subagent Critical_Case_Creation:
                 available when @variables.requestedOrderNumber != "" and @variables.criticalInquiryText != "" and @variables.criticalCaseCreationConfirmed == True
                 with input_OrderNumber = @variables.requestedOrderNumber
                 with input_InquiryText = @variables.criticalInquiryText
-                set @variables.criticalCaseCreated = @outputs.output_CaseCreated
-                set @variables.criticalCaseNumber = @outputs.output_CaseNumber
 
     actions:
         Create_Critical_Case:
