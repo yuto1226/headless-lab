@@ -10,6 +10,12 @@ This is a Salesforce DX project.
 - Bulkify Apex code
 - Check CRUD and FLS
 
+## Agent Script
+
+- When working with Agent Script, always refer to `.airules/AGENT_SCRIPT.md`.
+- Before generating Agent Script, complete the Discovery Questions in `.airules/AGENT_SCRIPT.md`.
+- After changing Agent Script, complete the Validation Checklist in `.airules/AGENT_SCRIPT.md`.
+
 ## Validation
 
 Run:
