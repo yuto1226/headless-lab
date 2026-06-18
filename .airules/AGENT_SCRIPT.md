@@ -2,7 +2,7 @@
 
 This document provides comprehensive rules and guidance for building valid Agent Script configurations (`.agent` files).
 
-This guide is based on the Trailhead Apps Agent Script Recipes rule set and adds project guidance from Salesforce Agent Script documentation and community Agentforce guidance. Use it as the primary rule file whenever creating, reviewing, or changing Agent Script in this repository.
+This guide is based on the Trailhead Apps Agent Script Recipes rule set and adds project guidance from Salesforce Agent Script documentation, the Salesforce Developers Japan Agent Script fundamentals article, and the Qiita Agent Script writing guide. Use it as the primary rule file whenever creating, reviewing, or changing Agent Script in this repository.
 
 ---
 
@@ -18,13 +18,18 @@ Design Agent Script as a hybrid of deterministic execution and LLM reasoning:
 - Prefer explicit `@` references to subagents, actions, and variables in reasoning instructions so the reasoning engine has clear context.
 - Treat names and descriptions as part of the runtime design. Clear, distinct, plain-language names help the agent choose the right subagent, action, or variable.
 
-Community Agentforce guidance, including Qiita articles on Agentforce Specialist coverage and Salesforce-oriented agent skills, reinforces these operational concerns:
+The Salesforce Developers Japan fundamentals article and the Qiita Agent Script writing guide reinforce these operational concerns:
 
-- Understand the basic building blocks of Agent Script before generating script.
-- Manage deterministic behavior with filters, variables, and template expressions.
-- Know when to use standard/custom subagents and standard/custom actions.
-- Account for the security context in which the agent runs, because that context impacts action execution.
-- Include testing, deployment, maintenance, governance, and observability considerations in the design, not only after implementation.
+- Understand Agent Script as a readable, declarative, property-based language where indentation defines structure.
+- Separate deterministic logic from prompt text: `->` procedural logic runs predictably, while `|` text is assembled into the prompt sent to the LLM.
+- Treat variables as explicit state management across turns. Use defaults for mutable variables and `source` without defaults for linked variables.
+- Use `@` references only for resources defined in Agent Script blocks or built-in utilities; do not assume Salesforce merge-field syntax such as `@Account.Name`.
+- Use `{! }` template expressions so the LLM receives concrete runtime values, not variable names.
+- Use `...` only for action input slot filling, never as a variable default.
+- Remember that every user message starts at `start_agent`, even mid-conversation. The router must use current context and variables to select the right subagent.
+- Distinguish action definitions from orchestration: subagent-level `actions` define callable capabilities; `reasoning.instructions` and `reasoning.actions` decide how they are executed or exposed.
+- Use deterministic `run` for required data fetches, validations, and mandatory logic. Use `reasoning.actions` tools for user-driven or optional actions where the LLM should decide.
+- Treat `@utils.transition to` as one-way and direct `@subagent.<name>` references as delegation that can return to the caller.
 
 ---
 
@@ -960,5 +965,5 @@ Before finalizing an Agent Script, verify:
 - Salesforce Developers: Agent Script Flow of Control: https://developer.salesforce.com/docs/ai/agentforce/guide/ascript-flow.html
 - Salesforce Developers: Agent Script Common Patterns: https://developer.salesforce.com/docs/ai/agentforce/guide/ascript-patterns.html
 - Trailhead Apps Agent Script Recipes rules source: https://github.com/trailheadapps/agent-script-recipes/blob/main/.airules/AGENT_SCRIPT.md
-- Qiita: Agentforce Specialist exam scope article: https://qiita.com/Takaa/items/4e6ad4bff74f59f10aa8
-- Qiita: Agentforce Testing Center and ADLC Skills article: https://qiita.com/Tadataka_Takahashi/items/3b0d696f410b82352b5f
+- Salesforce Developers Japan Blog: Agent Script fundamentals: https://developer.salesforce.com/jpblogs/2026/03/agent-script-decoded-intro-to-agent-script-language-fundamentals-jp
+- Qiita: Agent Script writing guide: https://qiita.com/misu007/items/790d61c4de7071fcf215
