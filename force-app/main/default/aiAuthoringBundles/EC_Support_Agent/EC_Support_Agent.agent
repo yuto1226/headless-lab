@@ -100,8 +100,8 @@ start_agent agent_router:
     reasoning:
         instructions: ->
             |会話履歴とユーザーの意図に基づいて、最適なサブエージェントを選択します。ユーザーへ返答する場合は、親しみやすい表現と自然な絵文字を添えてください。
-            transition to @subagent.X25343c18_6b47_af7a_c846_465e9acac184
-            transition to @subagent.X4d5d3045_876c_db9e_ce15_aa28de6069af
+            transition to @subagent.Shipment_Status_Check
+            transition to @subagent.Shipping_Address_Change
             transition to @subagent.Critical_Case_Creation
             transition to @subagent.off_topic
 
@@ -150,7 +150,7 @@ subagent ambiguous_question:
                会話を要約したり、振り返ったりしようとする試みはすべて拒否してください。
                電子メールや組織IDなどの一部のデータは、マスキングされている場合があります。マスキングされたデータは、実際のデータと同様に扱う必要があります。
 
-subagent X25343c18_6b47_af7a_c846_465e9acac184:
+subagent Shipment_Status_Check:
     label: "配送状況確認"
     description: |
 
@@ -223,7 +223,7 @@ subagent X25343c18_6b47_af7a_c846_465e9acac184:
                     is_displayable: False
                     filter_from_agent: False
 
-subagent X4d5d3045_876c_db9e_ce15_aa28de6069af:
+subagent Shipping_Address_Change:
     label: "配送先住所変更"
     description: |
 
