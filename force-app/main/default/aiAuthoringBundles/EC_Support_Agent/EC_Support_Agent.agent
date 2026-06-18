@@ -13,13 +13,13 @@ config:
     default_agent_user: "ec_support_agent@00dfj00000qxzaf790854322.ext"
 
 variables:
-    authenticationKey: mutable string
+    authenticationKey: mutable string = ""
         description: "Stores the authentication key that's used to generate the verification code."
         visibility: "Internal"
-    customerId: mutable string
+    customerId: mutable string = ""
         description: "Stores the Salesforce user ID or contact ID."
         visibility: "Internal"
-    customerType: mutable string
+    customerType: mutable string = ""
         description: "Stores the customer ID type, whether it's a Salesforce user or a contact."
         visibility: "Internal"
     isVerified: mutable boolean = False
@@ -41,18 +41,45 @@ variables:
     ChannelType: linked string
         source: @MessagingSession.ChannelType
         description: "This variable may also be referred to as MessagingSession ChannelType"
-    VerifiedCustomerId: mutable string
+    VerifiedCustomerId: mutable string = ""
         description: "This variable may also be referred to as VerifiedCustomerId"
         visibility: "Internal"
-    emailCaseId: mutable string
+    emailCaseId: mutable string = ""
         description: "Stores the Salesforce Case ID created by an inbound email."
         visibility: "External"
-    endUserEmail: mutable string
+    endUserEmail: mutable string = ""
         description: "Stores email address of the end user who sent the inbound email."
         visibility: "External"
-    endUserContactId: mutable string
+    endUserContactId: mutable string = ""
         description: "Stores the Salesforce Contact ID associated with the end user who sent the inbound email."
         visibility: "External"
+    requestedOrderNumber: mutable string = ""
+        description: "Stores the order number already provided by the user for shipment lookup or critical case creation."
+        visibility: "Internal"
+    requestedShipmentId: mutable string = ""
+        description: "Stores the shipment management record ID already provided by the user for shipping address changes."
+        visibility: "Internal"
+    requestedNewAddress: mutable string = ""
+        description: "Stores the new shipping address already provided by the user."
+        visibility: "Internal"
+    requestedNewPostalCode: mutable string = ""
+        description: "Stores the new postal code already provided by the user."
+        visibility: "Internal"
+    shippingAddressChangeConfirmed: mutable boolean = False
+        description: "Stores whether the user has confirmed the shipping address change."
+        visibility: "Internal"
+    criticalInquiryText: mutable string = ""
+        description: "Stores the critical issue details already provided by the user for case creation."
+        visibility: "Internal"
+    criticalCaseCreationConfirmed: mutable boolean = False
+        description: "Stores whether the user has confirmed critical case creation after reviewing the order number and inquiry details."
+        visibility: "Internal"
+    criticalCaseCreated: mutable boolean = False
+        description: "Stores whether the critical case creation flow created a case."
+        visibility: "Internal"
+    criticalCaseNumber: mutable string = ""
+        description: "Stores the case number returned by the critical case creation flow."
+        visibility: "Internal"
 
 language:
     additional_locales: "en_GB"
@@ -74,6 +101,7 @@ start_agent agent_router:
             |会話履歴とユーザーの意図に基づいて、最適なサブエージェントを選択します。
             transition to @subagent.X25343c18_6b47_af7a_c846_465e9acac184
             transition to @subagent.X4d5d3045_876c_db9e_ce15_aa28de6069af
+            transition to @subagent.Critical_Case_Creation
             transition to @subagent.off_topic
 
 subagent off_topic:
@@ -126,10 +154,21 @@ subagent X25343c18_6b47_af7a_c846_465e9acac184:
         配送状況確認
     reasoning:
         instructions: ->
-            |必ずまずはお客様から配送番号を取得するようにしてください。
+            |注文番号がまだ取得できていない場合のみ、お客様に注文番号を確認してください。
+             すでに注文番号が取得済みの場合は、同じ注文番号を再度聞かず、{!@variables.requestedOrderNumber} を使って配送状況を確認してください。
+             注文番号をユーザーが訂正した場合は、最新の注文番号を保存してから配送状況を確認してください。
         actions:
+            collect_OrderNumber: @utils.setVariables
+                description: "注文番号を会話から取得して保存する。すでに保存済みで変更がない場合は使用しない。"
+                available when @variables.requestedOrderNumber == ""
+                with requestedOrderNumber = ...
+            update_OrderNumber: @utils.setVariables
+                description: "ユーザーが保存済みの注文番号を明示的に訂正した場合のみ、最新の注文番号に更新する。"
+                available when @variables.requestedOrderNumber != ""
+                with requestedOrderNumber = ...
             Get_Shipment_Status: @actions.Get_Shipment_Status
-                with input_OrderNumber = ...
+                available when @variables.requestedOrderNumber != ""
+                with input_OrderNumber = @variables.requestedOrderNumber
 
     actions:
         Get_Shipment_Status:
@@ -187,13 +226,50 @@ subagent X4d5d3045_876c_db9e_ce15_aa28de6069af:
         配送先住所変更
     reasoning:
         instructions: ->
-            |
+            |配送先住所変更に必要な情報は、配送管理Id、新しい郵便番号、新しい配送先住所、変更してよいというお客様の確認です。
+             すでに取得済みの項目は再度聞かず、不足している項目だけを確認してください。
+             配送管理Idが保存済みの場合は {!@variables.requestedShipmentId} を使用してください。
+             新しい郵便番号が保存済みの場合は {!@variables.requestedNewPostalCode} を使用してください。
+             新しい配送先住所が保存済みの場合は {!@variables.requestedNewAddress} を使用してください。
+             お客様が内容を訂正した場合は、最新の値を保存してから住所変更を実行してください。
         actions:
+            collect_ShipmentId: @utils.setVariables
+                description: "配送管理Idが未取得の場合のみ、ユーザーから取得して保存する。"
+                available when @variables.requestedShipmentId == ""
+                with requestedShipmentId = ...
+            collect_NewPostalCode: @utils.setVariables
+                description: "新しい郵便番号が未取得の場合のみ、ユーザーから取得して保存する。"
+                available when @variables.requestedNewPostalCode == ""
+                with requestedNewPostalCode = ...
+            collect_NewAddress: @utils.setVariables
+                description: "新しい配送先住所が未取得の場合のみ、ユーザーから取得して保存する。"
+                available when @variables.requestedNewAddress == ""
+                with requestedNewAddress = ...
+            collect_ShippingAddressChangeConfirmation: @utils.setVariables
+                description: "配送管理Id、新しい郵便番号、新しい配送先住所を要約した後、住所変更してよいという確認を保存する。"
+                available when @variables.requestedShipmentId != "" and @variables.requestedNewPostalCode != "" and @variables.requestedNewAddress != "" and @variables.shippingAddressChangeConfirmed == False
+                with shippingAddressChangeConfirmed = ...
+            update_ShipmentId: @utils.setVariables
+                description: "ユーザーが保存済みの配送管理Idを明示的に訂正した場合のみ、最新の配送管理Idに更新する。"
+                available when @variables.requestedShipmentId != ""
+                with requestedShipmentId = ...
+            update_NewPostalCode: @utils.setVariables
+                description: "ユーザーが保存済みの郵便番号を明示的に訂正した場合のみ、最新の郵便番号に更新する。"
+                available when @variables.requestedNewPostalCode != ""
+                with requestedNewPostalCode = ...
+            update_NewAddress: @utils.setVariables
+                description: "ユーザーが保存済みの配送先住所を明示的に訂正した場合のみ、最新の配送先住所に更新する。"
+                available when @variables.requestedNewAddress != ""
+                with requestedNewAddress = ...
+            update_ShippingAddressChangeConfirmation: @utils.setVariables
+                description: "ユーザーが住所変更の確認内容を明示的に訂正した場合のみ、確認状態を更新する。"
+                with shippingAddressChangeConfirmed = ...
             Update_Shipping_Address: @actions.Update_Shipping_Address
-                with input_CustomerConfirmed = ...
-                with input_NewAddress = ...
-                with input_NewPostalCode = ...
-                with input_ShipmentId = ...
+                available when @variables.requestedShipmentId != "" and @variables.requestedNewPostalCode != "" and @variables.requestedNewAddress != "" and @variables.shippingAddressChangeConfirmed == True
+                with input_CustomerConfirmed = @variables.shippingAddressChangeConfirmed
+                with input_NewAddress = @variables.requestedNewAddress
+                with input_NewPostalCode = @variables.requestedNewPostalCode
+                with input_ShipmentId = @variables.requestedShipmentId
 
 
 
@@ -235,4 +311,94 @@ subagent X4d5d3045_876c_db9e_ce15_aa28de6069af:
                     description: ""
                     complex_data_type_name: "lightning__booleanType"
                     is_displayable: False
+                    filter_from_agent: False
+
+subagent Critical_Case_Creation:
+    label: "緊急対応ケース作成"
+    description: |
+
+        商品破損や重大トラブルなど、緊急対応が必要な問い合わせについてケースを作成する
+    reasoning:
+        instructions: ->
+            |あなたの役割は、商品破損や重大トラブルなど緊急対応が必要な問い合わせについて、サポート担当者が対応するケースを作成することです。
+             ケース作成には必ず注文番号と問い合わせ内容が必要です。不足している項目だけを確認し、すでに取得済みの項目は再度聞かないでください。
+             注文番号が保存済みの場合は {!@variables.requestedOrderNumber} を使用してください。
+             問い合わせ内容が保存済みの場合は {!@variables.criticalInquiryText} を使用してください。
+             ケースを作成する前に、注文番号と問い合わせ内容を簡潔に要約し、作成してよいか確認してください。
+             すでにケース作成の確認が取れている場合は、同じ確認を繰り返さず、{!@actions.Create_Critical_Case} を使用してください。
+             ケース作成後は、ケース番号と作成結果メッセージを伝えてください。Case Id はユーザーへ表示しないでください。
+        actions:
+            collect_Critical_OrderNumber: @utils.setVariables
+                description: "緊急対応ケース作成に必要な注文番号が未取得の場合のみ、ユーザーから取得して保存する。"
+                available when @variables.requestedOrderNumber == ""
+                with requestedOrderNumber = ...
+            collect_Critical_InquiryText: @utils.setVariables
+                description: "緊急対応ケースに記録する問い合わせ内容が未取得の場合のみ、ユーザーから取得して保存する。"
+                available when @variables.criticalInquiryText == ""
+                with criticalInquiryText = ...
+            collect_Critical_Case_Creation_Confirmation: @utils.setVariables
+                description: "注文番号と問い合わせ内容を要約した後、緊急対応ケースを作成してよいという確認を保存する。"
+                available when @variables.requestedOrderNumber != "" and @variables.criticalInquiryText != "" and @variables.criticalCaseCreationConfirmed == False
+                with criticalCaseCreationConfirmed = ...
+            update_Critical_OrderNumber: @utils.setVariables
+                description: "ユーザーが保存済みの注文番号を明示的に訂正した場合のみ、最新の注文番号に更新する。"
+                available when @variables.requestedOrderNumber != ""
+                with requestedOrderNumber = ...
+            update_Critical_InquiryText: @utils.setVariables
+                description: "ユーザーが保存済みの問い合わせ内容を明示的に訂正した場合のみ、最新の問い合わせ内容に更新する。"
+                available when @variables.criticalInquiryText != ""
+                with criticalInquiryText = ...
+            update_Critical_Case_Creation_Confirmation: @utils.setVariables
+                description: "ユーザーがケース作成の確認内容を明示的に訂正した場合のみ、確認状態を更新する。"
+                with criticalCaseCreationConfirmed = ...
+            Create_Critical_Case: @actions.Create_Critical_Case
+                available when @variables.requestedOrderNumber != "" and @variables.criticalInquiryText != "" and @variables.criticalCaseCreationConfirmed == True
+                with input_OrderNumber = @variables.requestedOrderNumber
+                with input_InquiryText = @variables.criticalInquiryText
+                set @variables.criticalCaseCreated = @outputs.output_CaseCreated
+                set @variables.criticalCaseNumber = @outputs.output_CaseNumber
+
+    actions:
+        Create_Critical_Case:
+            label: "Create_Critical_Case"
+            description: "注文番号と問い合わせ内容をもとに、商品破損などの緊急対応ケースを作成する。"
+            target: "flow://Create_Critical_Case"
+            require_user_confirmation: True
+            include_in_progress_indicator: True
+            progress_indicator_message: "緊急対応ケースを作成しています"
+            inputs:
+                input_OrderNumber: string
+                    label: "input_OrderNumber"
+                    description: "お客様から提供された注文番号(例: ORD-100001)"
+                    is_required: True
+                    complex_data_type_name: "lightning__textType"
+                input_InquiryText: string
+                    label: "input_InquiryText"
+                    description: "緊急対応ケースに記録する問い合わせ内容。商品破損や重大トラブルの状況を含める。"
+                    is_required: True
+                    complex_data_type_name: "lightning__textType"
+            outputs:
+                output_CaseCreated: boolean
+                    label: "output_CaseCreated"
+                    description: "緊急対応ケースが作成されたかどうか。"
+                    complex_data_type_name: "lightning__booleanType"
+                    is_displayable: False
+                    filter_from_agent: False
+                output_CaseId: string
+                    label: "output_CaseId"
+                    description: "作成されたケースのSalesforceレコードID。ユーザーには表示しない。"
+                    complex_data_type_name: "lightning__textType"
+                    is_displayable: False
+                    filter_from_agent: True
+                output_CaseNumber: string
+                    label: "output_CaseNumber"
+                    description: "作成されたケース番号。"
+                    complex_data_type_name: "lightning__textType"
+                    is_displayable: True
+                    filter_from_agent: False
+                output_Message: string
+                    label: "output_Message"
+                    description: "ケース作成結果を示すメッセージ。"
+                    complex_data_type_name: "lightning__textType"
+                    is_displayable: True
                     filter_from_agent: False
