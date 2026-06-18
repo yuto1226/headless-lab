@@ -59,7 +59,7 @@
         <inputParameters>
             <name>copilotLabel</name>
             <value>
-                <stringValue>PortalServiceAgent</stringValue>
+                <stringValue>EC一次対応Agent</stringValue>
             </value>
         </inputParameters>
         <inputParameters>
@@ -84,7 +84,7 @@
         <inputParameters>
             <name>copilotId</name>
             <value>
-                <setupReference>PortalServiceAgent</setupReference>
+                <setupReference>EC_Support_Agent</setupReference>
                 <setupReferenceType>BotDefinition</setupReferenceType>
             </value>
         </inputParameters>
@@ -141,7 +141,7 @@
             <targetReference>RouteWorkToAgent</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <variables>
         <name>recordId</name>
         <dataType>String</dataType>
