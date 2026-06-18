@@ -1,0 +1,11 @@
+{
+  "activeViewId" : "a105f351-cde3-4464-8d8c-0b12b145844b",
+  "appPageId" : "fbd1a1fe-ba70-4923-aa7b-774447ab8434",
+  "configurationTags" : [ ],
+  "devName" : "Question_Detail",
+  "id" : "494b9244-79ec-48b7-8009-9e840cb5d3fc",
+  "label" : "質問の詳細",
+  "routeType" : "feeditem",
+  "type" : "route",
+  "urlPrefix" : "question"
+}

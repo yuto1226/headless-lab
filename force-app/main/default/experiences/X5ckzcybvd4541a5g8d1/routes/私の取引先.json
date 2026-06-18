@@ -1,0 +1,11 @@
+{
+  "activeViewId" : "f31977dc-1e75-4f0e-b74a-25453cb66719",
+  "appPageId" : "fbd1a1fe-ba70-4923-aa7b-774447ab8434",
+  "configurationTags" : [ ],
+  "devName" : "My_Account",
+  "id" : "2ab10926-348b-4e82-acb7-7c246d5dfadb",
+  "label" : "私の取引先",
+  "routeType" : "my-account",
+  "type" : "route",
+  "urlPrefix" : "comm-my-account"
+}

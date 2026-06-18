@@ -1,0 +1,23 @@
+{
+  "appPageId" : "fbd1a1fe-ba70-4923-aa7b-774447ab8434",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "21d07c5c-2a7e-4a82-ab6c-e43fe09b641c",
+  "label" : "イネーブルメントプログラム Related List",
+  "regions" : [ {
+    "id" : "e7e12f33-641e-46a7-92aa-381eec261d12",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "id" : "c8a8ba31-2a8e-4846-9f14-84585f774ae7",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "fe687838-362e-4b23-a32c-77a437014ab3",
+    "regionName" : "footer",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "relatedlist-0Qo"
+}

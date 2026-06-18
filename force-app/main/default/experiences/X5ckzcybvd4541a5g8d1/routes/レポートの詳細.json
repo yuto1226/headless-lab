@@ -1,0 +1,11 @@
+{
+  "activeViewId" : "f65c92ca-1c32-4431-803c-9a6bcdc1b6ff",
+  "appPageId" : "fbd1a1fe-ba70-4923-aa7b-774447ab8434",
+  "configurationTags" : [ ],
+  "devName" : "Report_Detail",
+  "id" : "a9f7bfb7-4b75-46bf-b7c7-84891f3c7b72",
+  "label" : "レポートの詳細",
+  "routeType" : "detail-00O",
+  "type" : "route",
+  "urlPrefix" : "report"
+}

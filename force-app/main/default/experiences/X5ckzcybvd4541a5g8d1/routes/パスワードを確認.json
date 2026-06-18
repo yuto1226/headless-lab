@@ -1,0 +1,11 @@
+{
+  "activeViewId" : "ff593974-7ec9-4eaf-8152-9283d5b7bac5",
+  "appPageId" : "aeb18f49-81a6-45f4-ba32-f97e0e68911b",
+  "configurationTags" : [ ],
+  "devName" : "Check_Password",
+  "id" : "b41e943d-910d-4d26-b138-c159cfc07a7c",
+  "label" : "パスワードを確認",
+  "routeType" : "check-password",
+  "type" : "route",
+  "urlPrefix" : "CheckPasswordResetEmail"
+}

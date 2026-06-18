@@ -1,0 +1,11 @@
+{
+  "activeViewId" : "ec116963-0f8d-4d53-bc6f-d24f28fb4bd1",
+  "appPageId" : "aeb18f49-81a6-45f4-ba32-f97e0e68911b",
+  "configurationTags" : [ ],
+  "devName" : "Forgot_Password",
+  "id" : "f1e98900-8fb1-4f48-afe9-b9b820e842d0",
+  "label" : "パスワードを忘れた場合",
+  "routeType" : "forgot-password",
+  "type" : "route",
+  "urlPrefix" : "ForgotPassword"
+}

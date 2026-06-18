@@ -1,0 +1,11 @@
+{
+  "activeViewId" : "7414856a-8839-4434-9697-835b84d39bd8",
+  "appPageId" : "fbd1a1fe-ba70-4923-aa7b-774447ab8434",
+  "configurationTags" : [ ],
+  "devName" : "list_500",
+  "id" : "3d4e318e-a768-4cf6-bc74-f63164484446",
+  "label" : "ケース List",
+  "routeType" : "list-500",
+  "type" : "route",
+  "urlPrefix" : "case"
+}

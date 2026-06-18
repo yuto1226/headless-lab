@@ -1,0 +1,11 @@
+{
+  "activeViewId" : "21d07c5c-2a7e-4a82-ab6c-e43fe09b641c",
+  "appPageId" : "fbd1a1fe-ba70-4923-aa7b-774447ab8434",
+  "configurationTags" : [ ],
+  "devName" : "relatedlist_0Qo",
+  "id" : "9a9eb5f6-d58a-4579-8d75-33bd2bafef0a",
+  "label" : "イネーブルメントプログラム Related List",
+  "routeType" : "relatedlist-0Qo",
+  "type" : "route",
+  "urlPrefix" : "enablementprogram"
+}

@@ -1,0 +1,23 @@
+{
+  "appPageId" : "fbd1a1fe-ba70-4923-aa7b-774447ab8434",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "9ed27cbb-9200-49b9-bffc-521d875eb1d5",
+  "label" : "ストリーム Related List",
+  "regions" : [ {
+    "id" : "9d1acc60-c035-4071-ad4e-5ad1212bda0e",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "id" : "48bf1615-3acd-4db3-a534-f0e22445dbd1",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "b6bd9e4d-0fde-4be1-9e7d-c3b1eeefead6",
+    "regionName" : "footer",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "relatedlist-0Fq"
+}
