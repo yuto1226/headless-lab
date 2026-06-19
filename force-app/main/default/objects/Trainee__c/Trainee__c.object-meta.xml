@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>トレーニング支援を受ける利用者を管理するオブジェクト。標準Userとは分けて、筋トレ支援に必要なプロフィール情報を保持する。</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <label>利用者</label>
+    <nameField><label>利用者名</label><type>Text</type></nameField>
+    <pluralLabel>利用者</pluralLabel>
+    <sharingModel>Private</sharingModel>
+</CustomObject>

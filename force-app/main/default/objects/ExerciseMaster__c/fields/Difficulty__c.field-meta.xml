@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata"><fullName>Difficulty__c</fullName><label>難易度</label><required>false</required><type>Picklist</type><valueSet><restricted>true</restricted><valueSetDefinition><sorted>false</sorted><value><fullName>初心者</fullName><default>false</default><label>初心者</label></value><value><fullName>初級</fullName><default>false</default><label>初級</label></value><value><fullName>中級</fullName><default>false</default><label>中級</label></value></valueSetDefinition></valueSet></CustomField>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>自宅で実施できる自重トレーニング種目のマスタ。Agentforceが種目説明・やり方・注意点を説明する際に参照する。</description>
+    <enableActivities>false</enableActivities><enableBulkApi>true</enableBulkApi><enableFeeds>false</enableFeeds><enableHistory>false</enableHistory><enableReports>true</enableReports><enableSearch>true</enableSearch><enableSharing>true</enableSharing><enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Read</externalSharingModel>
+    <label>種目マスタ</label><nameField><label>種目名</label><type>Text</type></nameField><pluralLabel>種目マスタ</pluralLabel><sharingModel>ReadWrite</sharingModel>
+</CustomObject>

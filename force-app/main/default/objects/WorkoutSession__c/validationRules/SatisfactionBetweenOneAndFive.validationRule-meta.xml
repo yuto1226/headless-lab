@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata"><fullName>SatisfactionBetweenOneAndFive</fullName><active>true</active><description>達成感を1〜5に制限する。</description><errorConditionFormula>AND(NOT(ISBLANK(SatisfactionLevel__c)), OR(SatisfactionLevel__c &lt; 1, SatisfactionLevel__c &gt; 5))</errorConditionFormula><errorDisplayField>SatisfactionLevel__c</errorDisplayField><errorMessage>達成感は1から5の範囲で入力してください。</errorMessage></ValidationRule>
