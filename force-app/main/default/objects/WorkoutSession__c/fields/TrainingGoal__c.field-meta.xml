@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata"><fullName>TrainingGoal__c</fullName><deleteConstraint>SetNull</deleteConstraint><description>関連する目標。任意入力。</description><label>目標</label><referenceTo>TrainingGoal__c</referenceTo><relationshipLabel>トレーニング実績</relationshipLabel><relationshipName>WorkoutSessions</relationshipName><required>false</required><type>Lookup</type></CustomField>

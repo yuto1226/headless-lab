@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata"><fullName>ExerciseMaster__c</fullName><deleteConstraint>SetNull</deleteConstraint><description>実施した種目</description><label>種目マスタ</label><referenceTo>ExerciseMaster__c</referenceTo><relationshipLabel>種目実績</relationshipLabel><relationshipName>ExerciseResults</relationshipName><required>false</required><type>Lookup</type></CustomField>

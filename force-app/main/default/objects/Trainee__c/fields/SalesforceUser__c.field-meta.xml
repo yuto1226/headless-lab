@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata"><fullName>SalesforceUser__c</fullName><deleteConstraint>SetNull</deleteConstraint><description>現在ログインしているSalesforceユーザーと利用者レコードを紐づける</description><label>紐づくSalesforceユーザー</label><referenceTo>User</referenceTo><relationshipLabel>利用者</relationshipLabel><relationshipName>Trainees</relationshipName><required>false</required><type>Lookup</type></CustomField>

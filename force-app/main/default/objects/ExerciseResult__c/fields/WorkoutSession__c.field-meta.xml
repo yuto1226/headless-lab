@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata"><fullName>WorkoutSession__c</fullName><description>この種目実績が属するトレーニング実績</description><label>トレーニング実績</label><referenceTo>WorkoutSession__c</referenceTo><relationshipLabel>種目実績</relationshipLabel><relationshipName>ExerciseResults</relationshipName><reparentableMasterDetail>false</reparentableMasterDetail><type>MasterDetail</type><writeRequiresMasterRead>false</writeRequiresMasterRead></CustomField>
