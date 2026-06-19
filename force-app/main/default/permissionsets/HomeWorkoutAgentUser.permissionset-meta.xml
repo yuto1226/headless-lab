@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <applicationVisibilities>
+        <application>HomeWorkoutSupport</application>
+        <visible>true</visible>
+    </applicationVisibilities>
     <description>自宅自重トレーニング継続支援エージェントが利用者・目標・実績を操作し、種目マスタを参照するための最小権限。</description>
     <fieldPermissions><editable>true</editable><field>Trainee__c.SalesforceUser__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>true</editable><field>Trainee__c.Nickname__c</field><readable>true</readable></fieldPermissions>
