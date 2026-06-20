@@ -10,6 +10,14 @@ This is a Salesforce DX project.
 - Bulkify Apex code
 - Check CRUD and FLS
 
+## Salesforce Skills
+
+- Use the Salesforce skills installed under `.agents/skills` for Salesforce development tasks.
+- Before implementing a task, identify and read the applicable `.agents/skills/<skill-name>/SKILL.md`, then follow its workflow and validation requirements.
+- For Apex and invocable Agentforce Actions, use `generating-apex` and `generating-apex-test`; also use `running-apex-tests` and `running-code-analyzer` when validating changes.
+- For Agent Script or Agentforce agent work, use `developing-agentforce` and any applicable Agentforce testing or investigation skills.
+- Project-specific instructions in this `AGENTS.md` and `.airules/AGENT_SCRIPT.md` take precedence over conflicting skill defaults, including the Agent Script API version and deployment workflow below.
+
 ## Agent Script
 
 - When working with Agent Script, always refer to `.airules/AGENT_SCRIPT.md`.
