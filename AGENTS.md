@@ -10,6 +10,12 @@ This is a Salesforce DX project.
 - Bulkify Apex code
 - Check CRUD and FLS
 
+## Code Readability
+
+- Write code with clear, straightforward control flow and prioritize readability over clever or overly compact implementations.
+- Keep variable names concise and descriptive. Avoid unnecessarily long names, but do not shorten names when doing so would make their meaning unclear.
+- Add succinct comments that describe processing steps, business intent, and non-obvious decisions. Comments should explain what a block is doing or why it exists rather than restating individual statements.
+
 ## Salesforce Skills
 
 - Use the Salesforce skills installed under `.agents/skills` for Salesforce development tasks.
