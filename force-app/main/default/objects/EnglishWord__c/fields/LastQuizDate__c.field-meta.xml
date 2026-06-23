@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LastQuizDate__c</fullName>
+    <description>Stores the most recent date on which this English word was used in a quiz.</description>
+    <inlineHelpText>Enter the date when this word was most recently included in a quiz.</inlineHelpText>
+    <label>Last Quiz Date</label>
+    <required>false</required>
+    <type>Date</type>
+</CustomField>

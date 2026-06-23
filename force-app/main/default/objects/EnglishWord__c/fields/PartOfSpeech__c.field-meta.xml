@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PartOfSpeech__c</fullName>
+    <description>Classifies the grammatical role of the English word or expression.</description>
+    <inlineHelpText>Select the part of speech that best describes the word or expression.</inlineHelpText>
+    <label>Part of Speech</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value><fullName>Noun</fullName><default>false</default><label>Noun</label></value>
+            <value><fullName>Verb</fullName><default>false</default><label>Verb</label></value>
+            <value><fullName>Adjective</fullName><default>false</default><label>Adjective</label></value>
+            <value><fullName>Adverb</fullName><default>false</default><label>Adverb</label></value>
+            <value><fullName>Phrase</fullName><default>false</default><label>Phrase</label></value>
+            <value><fullName>Other</fullName><default>false</default><label>Other</label></value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

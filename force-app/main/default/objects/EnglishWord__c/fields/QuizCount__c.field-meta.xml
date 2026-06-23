@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>QuizCount__c</fullName>
+    <description>Tracks how many times this English word has appeared in quizzes.</description>
+    <inlineHelpText>Enter the total number of quiz attempts for this word.</inlineHelpText>
+    <label>Quiz Count</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <type>Number</type>
+</CustomField>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CorrectCount__c</fullName>
+    <description>Tracks how many quiz answers for this English word were correct.</description>
+    <inlineHelpText>Enter the total number of correct quiz answers for this word.</inlineHelpText>
+    <label>Correct Count</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <type>Number</type>
+</CustomField>

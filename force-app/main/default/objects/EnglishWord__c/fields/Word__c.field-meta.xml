@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Word__c</fullName>
+    <description>Stores the English word or expression to study.</description>
+    <inlineHelpText>Enter the English word or expression shown during study and quizzes.</inlineHelpText>
+    <label>Word</label>
+    <length>255</length>
+    <required>false</required>
+    <type>Text</type>
+</CustomField>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Meaning__c</fullName>
+    <description>Stores the meaning or translation used to learn the English word.</description>
+    <inlineHelpText>Enter a clear meaning or translation for the word.</inlineHelpText>
+    <label>Meaning</label>
+    <length>32768</length>
+    <type>LongTextArea</type>
+    <visibleLines>5</visibleLines>
+</CustomField>

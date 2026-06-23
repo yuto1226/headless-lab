@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Difficulty__c</fullName>
+    <description>Classifies the learning difficulty of the English word.</description>
+    <inlineHelpText>Select the difficulty level used to organize study and quizzes.</inlineHelpText>
+    <label>Difficulty</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value><fullName>Easy</fullName><default>false</default><label>Easy</label></value>
+            <value><fullName>Normal</fullName><default>false</default><label>Normal</label></value>
+            <value><fullName>Hard</fullName><default>false</default><label>Hard</label></value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
