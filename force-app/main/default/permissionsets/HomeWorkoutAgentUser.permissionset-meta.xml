@@ -15,6 +15,8 @@
     <fieldPermissions><editable>true</editable><field>Trainee__c.StartDate__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>true</editable><field>Trainee__c.DesiredWeeklyFrequency__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>true</editable><field>Trainee__c.Notes__c</field><readable>true</readable></fieldPermissions>
+    <fieldPermissions><editable>false</editable><field>Trainee__c.TotalWorkoutCount__c</field><readable>true</readable></fieldPermissions>
+    <fieldPermissions><editable>false</editable><field>Trainee__c.TotalWorkoutMinutes__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>true</editable><field>TrainingGoal__c.Trainee__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>true</editable><field>TrainingGoal__c.GoalType__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>true</editable><field>TrainingGoal__c.StartDate__c</field><readable>true</readable></fieldPermissions>
@@ -23,7 +25,6 @@
     <fieldPermissions><editable>true</editable><field>TrainingGoal__c.Unit__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>true</editable><field>TrainingGoal__c.Status__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>true</editable><field>TrainingGoal__c.Notes__c</field><readable>true</readable></fieldPermissions>
-    <fieldPermissions><editable>true</editable><field>WorkoutSession__c.Trainee__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>true</editable><field>WorkoutSession__c.TrainingGoal__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>true</editable><field>WorkoutSession__c.WorkoutDateTime__c</field><readable>true</readable></fieldPermissions>
     <fieldPermissions><editable>true</editable><field>WorkoutSession__c.DurationMinutes__c</field><readable>true</readable></fieldPermissions>

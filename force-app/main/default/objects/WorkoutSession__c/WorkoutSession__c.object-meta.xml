@@ -3,6 +3,6 @@
     <deploymentStatus>Deployed</deploymentStatus>
     <description>1回のトレーニング実施単位を管理するオブジェクト。今週何回運動したか、継続できているかを判定するために利用する。</description>
     <enableActivities>false</enableActivities><enableBulkApi>true</enableBulkApi><enableFeeds>false</enableFeeds><enableHistory>false</enableHistory><enableReports>true</enableReports><enableSearch>true</enableSearch><enableSharing>true</enableSharing><enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>Private</externalSharingModel>
-    <label>トレーニング実績</label><nameField><displayFormat>WS-{00000}</displayFormat><label>トレーニング実績番号</label><type>AutoNumber</type></nameField><pluralLabel>トレーニング実績</pluralLabel><sharingModel>Private</sharingModel>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <label>トレーニング実績</label><nameField><displayFormat>WS-{00000}</displayFormat><label>トレーニング実績番号</label><type>AutoNumber</type></nameField><pluralLabel>トレーニング実績</pluralLabel><sharingModel>ControlledByParent</sharingModel>
 </CustomObject>

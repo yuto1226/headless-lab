@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CustomField xmlns="http://soap.sforce.com/2006/04/metadata"><fullName>Trainee__c</fullName><deleteConstraint>SetNull</deleteConstraint><description>このトレーニングを実施した利用者</description><label>利用者</label><referenceTo>Trainee__c</referenceTo><relationshipLabel>トレーニング実績</relationshipLabel><relationshipName>WorkoutSessions</relationshipName><required>false</required><type>Lookup</type></CustomField>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Trainee__c</fullName>
+    <description>このトレーニングを実施した利用者。トレーニング実績は利用者に従属し、利用者なしでは存在しない。</description>
+    <label>利用者</label>
+    <referenceTo>Trainee__c</referenceTo>
+    <relationshipLabel>トレーニング実績</relationshipLabel>
+    <relationshipName>WorkoutSessions</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>
