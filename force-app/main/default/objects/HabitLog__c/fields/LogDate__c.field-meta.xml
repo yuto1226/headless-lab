@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LogDate__c</fullName>
+    <description>習慣記録の対象日を管理し、カレンダー上の日付と1対1で対応させる。</description>
+    <inlineHelpText>この習慣記録を登録する日付です。同じ日付の記録は編集対象として扱われます。</inlineHelpText>
+    <label>記録日</label>
+    <trackHistory>true</trackHistory>
+    <type>Date</type>
+</CustomField>

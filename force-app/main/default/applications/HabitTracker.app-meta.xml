@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>日々の習慣記録、カレンダー確認、レポート、ダッシュボードを利用するLightningアプリケーション。</description>
+    <formFactors>Large</formFactors>
+    <formFactors>Small</formFactors>
+    <isNavAutoTempTabsDisabled>true</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <label>習慣化記録</label>
+    <navType>Standard</navType>
+    <tabs>HabitCalendar</tabs>
+    <tabs>HabitLog__c</tabs>
+    <tabs>standard-Report</tabs>
+    <tabs>standard-Dashboard</tabs>
+    <uiType>Lightning</uiType>
+</CustomApplication>

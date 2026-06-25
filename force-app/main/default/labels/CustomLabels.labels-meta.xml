@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>HabitTracker_Load_Error</fullName>
+        <categories>HabitTracker</categories>
+        <language>ja</language>
+        <protected>false</protected>
+        <shortDescription>Habit Tracker load error</shortDescription>
+        <value>習慣記録を読み込めませんでした。権限設定を確認してください。</value>
+    </labels>
+    <labels>
+        <fullName>HabitTracker_Save_Error</fullName>
+        <categories>HabitTracker</categories>
+        <language>ja</language>
+        <protected>false</protected>
+        <shortDescription>Habit Tracker save error</shortDescription>
+        <value>習慣記録を保存できませんでした。入力内容と権限設定を確認してください。</value>
+    </labels>
+    <labels>
+        <fullName>HabitTracker_Validation_Error</fullName>
+        <categories>HabitTracker</categories>
+        <language>ja</language>
+        <protected>false</protected>
+        <shortDescription>Habit Tracker validation error</shortDescription>
+        <value>必須項目を入力してください。</value>
+    </labels>
+</CustomLabels>
