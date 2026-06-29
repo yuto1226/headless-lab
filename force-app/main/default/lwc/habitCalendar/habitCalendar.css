@@ -1,0 +1,186 @@
+.habit-shell {
+    display: grid;
+    gap: var(--slds-g-spacing-3, 0.75rem);
+}
+
+.habit-toolbar {
+    align-items: center;
+    display: grid;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+    grid-template-columns: auto 1fr auto auto;
+}
+
+.habit-month-heading {
+    min-width: 0;
+    text-align: center;
+}
+
+.habit-month-heading h2 {
+    color: var(--slds-g-color-on-surface-3, #181818);
+    font-size: var(--slds-g-font-scale-4, 1.5rem);
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.habit-today-button {
+    justify-self: end;
+}
+
+.habit-weekdays,
+.habit-calendar-grid {
+    display: grid;
+    gap: var(--slds-g-spacing-1, 0.25rem);
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.habit-weekday {
+    color: var(--slds-g-color-on-surface-2, #444444);
+    font-size: var(--slds-g-font-scale-neg-1, 0.75rem);
+    font-weight: 700;
+    padding-block: var(--slds-g-spacing-1, 0.25rem);
+    text-align: center;
+}
+
+.habit-day {
+    background: var(--slds-g-color-surface-container-1, #ffffff);
+    border: 1px solid var(--slds-g-color-border-1, #dddbda);
+    border-radius: 0.5rem;
+    color: var(--slds-g-color-on-surface-3, #181818);
+    min-height: 5rem;
+    padding: var(--slds-g-spacing-2, 0.5rem);
+    position: relative;
+    text-align: left;
+    touch-action: manipulation;
+}
+
+.habit-day:focus {
+    outline: 2px solid var(--slds-g-color-accent-2, #0176d3);
+    outline-offset: 2px;
+}
+
+.habit-day_blank {
+    background: var(--slds-g-color-surface-container-2, #f3f3f3);
+    border-style: dashed;
+}
+
+.habit-day_today {
+    border-color: var(--slds-g-color-accent-2, #0176d3);
+    box-shadow: inset 0 0 0 1px var(--slds-g-color-accent-2, #0176d3);
+}
+
+.habit-day_selected {
+    background: var(--slds-g-color-accent-container-1, #eef4ff);
+}
+
+.habit-day_recorded {
+    background: var(--slds-g-color-success-container-1, #eefcf6);
+}
+
+.habit-day-number {
+    display: block;
+    font-size: var(--slds-g-font-scale-3, 1.25rem);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.habit-day-label {
+    color: var(--slds-g-color-on-surface-2, #444444);
+    display: block;
+    font-size: var(--slds-g-font-scale-neg-1, 0.75rem);
+    line-height: 1.2;
+    margin-top: var(--slds-g-spacing-1, 0.25rem);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.habit-record-dot {
+    background: var(--slds-g-color-success-1, #2e844a);
+    border-radius: 999rem;
+    display: block;
+    height: 0.5rem;
+    position: absolute;
+    right: var(--slds-g-spacing-2, 0.5rem);
+    top: var(--slds-g-spacing-2, 0.5rem);
+    width: 0.5rem;
+}
+
+.habit-modal {
+    max-width: 34rem;
+}
+
+.habit-modal-status {
+    color: var(--slds-g-color-on-surface-2, #444444);
+    font-size: var(--slds-g-font-scale-neg-1, 0.75rem);
+    margin-top: var(--slds-g-spacing-1, 0.25rem);
+}
+
+.habit-modal-footer {
+    display: flex;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+    justify-content: space-between;
+}
+
+.habit-modal-actions {
+    display: flex;
+    gap: var(--slds-g-spacing-2, 0.5rem);
+    justify-content: flex-end;
+}
+
+.habit-modal-danger {
+    min-height: 2rem;
+}
+
+.habit-delete-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: var(--slds-g-spacing-3, 0.75rem);
+}
+
+@media (max-width: 600px) {
+    .habit-toolbar {
+        grid-template-columns: auto 1fr auto;
+    }
+
+    .habit-today-button {
+        grid-column: 1 / -1;
+        justify-self: stretch;
+    }
+
+    .habit-day {
+        min-height: 4.5rem;
+        padding: var(--slds-g-spacing-1, 0.25rem);
+    }
+
+    .habit-day-number {
+        font-size: var(--slds-g-font-scale-2, 1.125rem);
+    }
+
+    .habit-day-label {
+        font-size: 0.6875rem;
+    }
+
+    .habit-record-dot {
+        right: var(--slds-g-spacing-1, 0.25rem);
+        top: var(--slds-g-spacing-1, 0.25rem);
+    }
+
+    .habit-modal {
+        margin: 0;
+        max-width: none;
+        width: 100%;
+    }
+
+    .habit-modal-footer {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .habit-modal-actions {
+        flex-direction: column-reverse;
+    }
+
+    .habit-delete-row {
+        justify-content: stretch;
+    }
+}

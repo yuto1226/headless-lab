@@ -1,0 +1,142 @@
+<template>
+    <lightning-card title="習慣カレンダー" icon-name="standard:date_time">
+        <div class="slds-p-around_medium habit-shell">
+            <section class="habit-toolbar" aria-label="月移動">
+                <lightning-button-icon
+                    icon-name="utility:chevronleft"
+                    alternative-text="前月"
+                    title="前月"
+                    onclick={handlePreviousMonth}>
+                </lightning-button-icon>
+                <div class="habit-month-heading">
+                    <p class="slds-text-title">月単位の記録</p>
+                    <h2>{monthLabel}</h2>
+                </div>
+                <lightning-button-icon
+                    icon-name="utility:chevronright"
+                    alternative-text="翌月"
+                    title="翌月"
+                    onclick={handleNextMonth}>
+                </lightning-button-icon>
+                <lightning-button
+                    class="habit-today-button"
+                    label="今日"
+                    onclick={handleToday}>
+                </lightning-button>
+            </section>
+
+            <template if:true={errorMessage}>
+                <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+                    <span class="slds-assistive-text">エラー</span>
+                    <h2>{errorMessage}</h2>
+                </div>
+            </template>
+
+            <section class="habit-weekdays" aria-label="曜日">
+                <template for:each={weekdayLabels} for:item="weekday">
+                    <div key={weekday} class="habit-weekday">{weekday}</div>
+                </template>
+            </section>
+
+            <section class="habit-calendar-grid" aria-label={calendarAriaLabel}>
+                <template for:each={calendarDays} for:item="day">
+                    <button
+                        key={day.key}
+                        class={day.className}
+                        data-date={day.isoDate}
+                        type="button"
+                        onclick={handleDaySelect}
+                        disabled={day.isBlank}
+                        aria-label={day.ariaLabel}>
+                        <span class="habit-day-number">{day.dayNumber}</span>
+                        <template if:true={day.hasLog}>
+                            <span class="habit-record-dot" title="記録済み"></span>
+                        </template>
+                        <template if:true={day.habitLabel}>
+                            <span class="habit-day-label">{day.habitLabel}</span>
+                        </template>
+                    </button>
+                </template>
+            </section>
+        </div>
+    </lightning-card>
+
+    <template if:true={isModalOpen}>
+        <section
+            role="dialog"
+            tabindex="-1"
+            aria-modal="true"
+            aria-labelledby="habit-modal-heading"
+            class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container habit-modal">
+                <header class="slds-modal__header">
+                    <lightning-button-icon
+                        class="slds-modal__close slds-button slds-button_icon"
+                        icon-name="utility:close"
+                        alternative-text="キャンセル"
+                        title="キャンセル"
+                        onclick={handleCancel}>
+                    </lightning-button-icon>
+                    <h2 id="habit-modal-heading" class="slds-modal__title slds-hyphenate">
+                        {selectedDateLabel}
+                    </h2>
+                    <p class="habit-modal-status">{modalModeText}</p>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <template if:true={hasExistingLog}>
+                        <div class="habit-delete-row">
+                            <lightning-button
+                                variant="destructive"
+                                label="この記録を削除"
+                                icon-name="utility:delete"
+                                onclick={handleDelete}
+                                disabled={isBusy}>
+                            </lightning-button>
+                        </div>
+                    </template>
+                    <lightning-checkbox-group
+                        label="実施した習慣"
+                        options={habitOptions}
+                        value={form.habits}
+                        onchange={handleHabitsChange}
+                        required>
+                    </lightning-checkbox-group>
+                    <lightning-textarea
+                        class="slds-m-top_medium"
+                        label="メモ"
+                        value={form.memo}
+                        onchange={handleMemoChange}>
+                    </lightning-textarea>
+                </div>
+                <footer class="slds-modal__footer habit-modal-footer">
+                    <div class="habit-modal-danger">
+                        <template if:true={hasExistingLog}>
+                            <lightning-button
+                                variant="destructive-text"
+                                label="削除"
+                                icon-name="utility:delete"
+                                onclick={handleDelete}
+                                disabled={isBusy}>
+                            </lightning-button>
+                        </template>
+                    </div>
+                    <div class="habit-modal-actions">
+                        <lightning-button
+                            label="キャンセル"
+                            onclick={handleCancel}
+                            disabled={isBusy}>
+                        </lightning-button>
+                        <lightning-button
+                            variant="brand"
+                            label="保存"
+                            icon-name="utility:save"
+                            onclick={handleSave}
+                            disabled={isBusy}>
+                        </lightning-button>
+                    </div>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>
