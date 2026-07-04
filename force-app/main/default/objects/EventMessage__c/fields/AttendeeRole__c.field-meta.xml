@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AttendeeRole__c</fullName>
+    <description>イベント参加者が自身の立場を選択し、登壇者が種別ごとの投稿傾向を集計できるようにします。</description>
+    <inlineHelpText>投稿者に最も近い参加者種別を選択してください。</inlineHelpText>
+    <label>参加者種別</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>管理者</fullName>
+                <default>false</default>
+                <label>管理者</label>
+            </value>
+            <value>
+                <fullName>ユーザー</fullName>
+                <default>false</default>
+                <label>ユーザー</label>
+            </value>
+            <value>
+                <fullName>開発者</fullName>
+                <default>false</default>
+                <label>開発者</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

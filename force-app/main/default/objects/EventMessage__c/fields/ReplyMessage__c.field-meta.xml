@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ReplyMessage__c</fullName>
+    <description>Prompt Builderを呼び出す非同期Apexが生成した、参加者向けのお礼メッセージを保存します。</description>
+    <inlineHelpText>AIが生成した参加者への返信文が保存されます。</inlineHelpText>
+    <label>お礼メッセージ</label>
+    <length>32768</length>
+    <trackHistory>true</trackHistory>
+    <type>LongTextArea</type>
+    <visibleLines>6</visibleLines>
+</CustomField>
