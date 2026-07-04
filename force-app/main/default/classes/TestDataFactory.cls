@@ -61,4 +61,49 @@ public class TestDataFactory {
         }
         return logs;
     }
+
+    /**
+     * Creates one event message for notification tests.
+     *
+     * @param attendeeRole participant role picklist value
+     * @param enthusiasm participant message body
+     * @param doInsert whether to insert the record
+     * @return the created event message
+     */
+    public static EventMessage__c createEventMessage(
+        String attendeeRole,
+        String enthusiasm,
+        Boolean doInsert
+    ) {
+        EventMessage__c message = new EventMessage__c(
+            AttendeeRole__c = String.isBlank(attendeeRole) ? 'ユーザー' : attendeeRole,
+            Enthusiasm__c = String.isBlank(enthusiasm) ? 'イベントを楽しみにしています' : enthusiasm
+        );
+        if (doInsert) {
+            insert message;
+        }
+        return message;
+    }
+
+    /**
+     * Creates event messages for bulk notification tests.
+     *
+     * @param count number of messages to create
+     * @param doInsert whether to insert the records
+     * @return the created event messages
+     */
+    public static List<EventMessage__c> createEventMessages(Integer count, Boolean doInsert) {
+        List<EventMessage__c> messages = new List<EventMessage__c>();
+        List<String> roles = new List<String>{ '管理者', 'ユーザー', '開発者' };
+        for (Integer index = 0; index < count; index++) {
+            messages.add(new EventMessage__c(
+                AttendeeRole__c = roles[Math.mod(index, roles.size())],
+                Enthusiasm__c = 'Bulk enthusiasm ' + index
+            ));
+        }
+        if (doInsert && !messages.isEmpty()) {
+            insert messages;
+        }
+        return messages;
+    }
 }
