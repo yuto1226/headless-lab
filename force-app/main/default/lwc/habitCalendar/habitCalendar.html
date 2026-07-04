@@ -52,6 +52,9 @@
                         <template if:true={day.hasLog}>
                             <span class="habit-record-dot" title="記録済み"></span>
                         </template>
+                        <template if:true={day.habitCountLabel}>
+                            <span class="habit-day-count">{day.habitCountLabel}</span>
+                        </template>
                         <template if:true={day.habitLabel}>
                             <span class="habit-day-label">{day.habitLabel}</span>
                         </template>
@@ -94,13 +97,24 @@
                             </lightning-button>
                         </div>
                     </template>
-                    <lightning-checkbox-group
-                        label="実施した習慣"
-                        options={habitOptions}
-                        value={form.habits}
-                        onchange={handleHabitsChange}
-                        required>
-                    </lightning-checkbox-group>
+                    <fieldset class="habit-choice-fieldset">
+                        <legend class="habit-choice-legend">
+                            <abbr class="slds-required" title="必須">*</abbr>実施した習慣
+                        </legend>
+                        <div class="habit-choice-grid">
+                            <template for:each={habitCheckboxOptions} for:item="option">
+                                <lightning-input
+                                    key={option.value}
+                                    class="habit-choice"
+                                    type="checkbox"
+                                    label={option.label}
+                                    value={option.value}
+                                    checked={option.checked}
+                                    onchange={handleHabitToggle}>
+                                </lightning-input>
+                            </template>
+                        </div>
+                    </fieldset>
                     <lightning-textarea
                         class="slds-m-top_medium"
                         label="メモ"

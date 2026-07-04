@@ -10,7 +10,9 @@ const HABIT_OPTIONS = [
     { label: '筋トレ', value: '筋トレ' },
     { label: 'Speakでの英語学習', value: 'Speakでの英語学習' },
     { label: '読書', value: '読書' },
-    { label: 'Codexでの個人開発', value: 'Codexでの個人開発' }
+    { label: 'Codexでの個人開発', value: 'Codexでの個人開発' },
+    { label: 'もとやまさんのnote', value: 'もとやまさんのnote' },
+    { label: 'トイレ掃除', value: 'トイレ掃除' }
 ];
 const WEEKDAY_LABELS = ['日', '月', '火', '水', '木', '金', '土'];
 
@@ -59,6 +61,13 @@ export default class HabitCalendar extends LightningElement {
         return this.hasExistingLog ? '登録済みの記録を編集中です。' : '新しい記録を作成します。';
     }
 
+    get habitCheckboxOptions() {
+        return this.habitOptions.map((option) => ({
+            ...option,
+            checked: this.form.habits.includes(option.value)
+        }));
+    }
+
     get isBusy() {
         return this.isSaving || this.isDeleting;
     }
@@ -71,6 +80,7 @@ export default class HabitCalendar extends LightningElement {
         const lastDay = new Date(year, month + 1, 0);
         const todayIso = this.toIsoDate(new Date());
         const selectedIso = this.selectedDate;
+        const maxHabitCount = this.habitOptions.length;
         const days = [];
 
         for (let index = 0; index < firstDay.getDay(); index += 1) {
@@ -85,6 +95,7 @@ export default class HabitCalendar extends LightningElement {
             const date = new Date(year, month, dayNumber);
             const isoDate = this.toIsoDate(date);
             const log = logsByDate.get(isoDate);
+            const habitCount = log?.habitCount || 0;
             const classes = ['habit-day'];
             if (isoDate === todayIso) {
                 classes.push('habit-day_today');
@@ -95,14 +106,22 @@ export default class HabitCalendar extends LightningElement {
             if (log) {
                 classes.push('habit-day_recorded');
             }
+            if (habitCount > 0) {
+                classes.push(`habit-count-${Math.min(habitCount, maxHabitCount)}`);
+            }
+            if (habitCount === maxHabitCount) {
+                classes.push('complete-day');
+            }
             days.push({
                 key: isoDate,
                 isoDate,
                 dayNumber: String(dayNumber),
                 hasLog: Boolean(log),
+                habitCount,
+                habitCountLabel: habitCount > 0 ? `${habitCount}件` : '',
                 habitLabel: this.getHabitLabel(log),
                 className: classes.join(' '),
-                ariaLabel: `${this.formatDate(isoDate)} ${log ? '記録済み' : '未記録'}`,
+                ariaLabel: `${this.formatDate(isoDate)} ${habitCount > 0 ? `${habitCount}件記録済み` : '未記録'}`,
                 isBlank: false
             });
         }
@@ -165,8 +184,15 @@ export default class HabitCalendar extends LightningElement {
         this.isModalOpen = true;
     }
 
-    handleHabitsChange(event) {
-        this.form = { ...this.form, habits: event.detail.value };
+    handleHabitToggle(event) {
+        const habit = event.target.value;
+        const selectedHabits = new Set(this.form.habits);
+        if (event.target.checked) {
+            selectedHabits.add(habit);
+        } else {
+            selectedHabits.delete(habit);
+        }
+        this.form = { ...this.form, habits: Array.from(selectedHabits) };
     }
 
     handleMemoChange(event) {
@@ -244,21 +270,32 @@ export default class HabitCalendar extends LightningElement {
     }
 
     getHabitLabel(log) {
-        if (!log?.habitValues?.length) {
+        if (log?.habitValues?.length !== 1) {
             return '';
         }
-        return log.habitValues.length === 1
-            ? log.habitValues[0]
-            : `${log.habitValues.length}件`;
+        return log.habitValues[0];
     }
 
     normalizeLog(log) {
+        const habitValues = this.getHabitValues(log);
         return {
             ...log,
             recordId: this.getLogId(log),
             logDateKey: this.normalizeIsoDate(log.logDate),
-            habitValues: log.habitValues || []
+            habitValues,
+            habitCount: habitValues.length
         };
+    }
+
+    getHabitValues(log) {
+        const storedHabits = log?.habits || log?.Habits__c;
+        if (typeof storedHabits === 'string') {
+            return storedHabits
+                .split(';')
+                .map((habit) => habit.trim())
+                .filter((habit) => habit);
+        }
+        return log?.habitValues || [];
     }
 
     getLogId(log) {

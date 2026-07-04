@@ -29,7 +29,17 @@
                 <default>false</default>
                 <label>Codexでの個人開発</label>
             </value>
+            <value>
+                <fullName>もとやまさんのnote</fullName>
+                <default>false</default>
+                <label>もとやまさんのnote</label>
+            </value>
+            <value>
+                <fullName>トイレ掃除</fullName>
+                <default>false</default>
+                <label>トイレ掃除</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
-    <visibleLines>4</visibleLines>
+    <visibleLines>6</visibleLines>
 </CustomField>
