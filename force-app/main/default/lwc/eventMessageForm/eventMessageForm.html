@@ -8,9 +8,16 @@
                 </lightning-spinner>
             </template>
 
+            <template if:true={feedbackMessage}>
+                <div class={feedbackClass} role="status">
+                    <span class="slds-assistive-text">{feedbackTitle}</span>
+                    <h2>{feedbackMessage}</h2>
+                </div>
+            </template>
+
             <lightning-combobox
                 name="attendeeRole"
-                label="参加者種別"
+                label="Salesforceのご利用方法"
                 value={attendeeRole}
                 placeholder="選択してください"
                 options={attendeeRoleOptions}

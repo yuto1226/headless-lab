@@ -1,52 +1,29 @@
-import { LightningElement, wire } from 'lwc';
-import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import { getObjectInfo, getPicklistValues } from 'lightning/uiObjectInfoApi';
+import { LightningElement } from 'lwc';
+import Toast from 'lightning/toast';
 import submitMessage from '@salesforce/apex/EventMessageFormController.submitMessage';
-import EVENT_MESSAGE_OBJECT from '@salesforce/schema/EventMessage__c';
-import ATTENDEE_ROLE_FIELD from '@salesforce/schema/EventMessage__c.AttendeeRole__c';
+
+const ATTENDEE_ROLE_OPTIONS = [
+    { label: '管理者', value: '管理者' },
+    { label: 'ユーザー', value: 'ユーザー' },
+    { label: '開発者', value: '開発者' },
+    { label: 'その他', value: 'その他' }
+];
 
 export default class EventMessageForm extends LightningElement {
     attendeeRole = '';
     enthusiasm = '';
+    feedbackMessage = '';
+    feedbackTitle = '';
+    feedbackVariant = 'info';
     isSubmitting = false;
-    isLoadingRoles = true;
-    recordTypeId;
-    attendeeRoleOptions = [];
+    attendeeRoleOptions = ATTENDEE_ROLE_OPTIONS;
 
     get isBusy() {
-        return this.isSubmitting || this.isLoadingRoles;
+        return this.isSubmitting;
     }
 
-    @wire(getObjectInfo, { objectApiName: EVENT_MESSAGE_OBJECT })
-    wiredObjectInfo({ data, error }) {
-        if (data) {
-            this.recordTypeId = data.defaultRecordTypeId;
-            return;
-        }
-        if (error) {
-            this.isLoadingRoles = false;
-            this.showToast('読み込みエラー', this.reduceError(error), 'error');
-        }
-    }
-
-    @wire(getPicklistValues, {
-        recordTypeId: '$recordTypeId',
-        fieldApiName: ATTENDEE_ROLE_FIELD
-    })
-    wiredAttendeeRoles({ data, error }) {
-        if (data) {
-            this.attendeeRoleOptions = data.values.map((entry) => ({
-                label: entry.label,
-                value: entry.value
-            }));
-            this.isLoadingRoles = false;
-            return;
-        }
-        if (error) {
-            this.attendeeRoleOptions = [];
-            this.isLoadingRoles = false;
-            this.showToast('読み込みエラー', this.reduceError(error), 'error');
-        }
+    get feedbackClass() {
+        return `slds-notify slds-notify_alert slds-alert_${this.feedbackVariant} slds-m-bottom_medium`;
     }
 
     handleRoleChange(event) {
@@ -88,7 +65,15 @@ export default class EventMessageForm extends LightningElement {
     }
 
     showToast(title, message, variant) {
-        this.dispatchEvent(new ShowToastEvent({ title, message, variant }));
+        this.feedbackTitle = title;
+        this.feedbackMessage = message;
+        this.feedbackVariant = variant;
+
+        try {
+            Toast.show({ label: title, message, variant }, this);
+        } catch (error) {
+            // The inline feedback above is the fallback for surfaces that suppress toasts.
+        }
     }
 
     reduceError(error) {

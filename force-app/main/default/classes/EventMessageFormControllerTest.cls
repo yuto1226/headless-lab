@@ -5,14 +5,14 @@ private class EventMessageFormControllerTest {
     @IsTest
     static void shouldCreateEventMessageWhenInputIsValid() {
         SlackMock mock = new SlackMock();
-        mock.expectedTextFragment = '【一般】の方から意気込みが届きました！';
+        mock.expectedTextFragment = '【管理者】の方から意気込みが届きました！';
         Test.setMock(HttpCalloutMock.class, mock);
         User eventUser = createEventUser();
 
         Id messageId;
         System.runAs(eventUser) {
             Test.startTest();
-            messageId = EventMessageFormController.submitMessage(' 一般 ', ' LTを楽しみにしています ');
+            messageId = EventMessageFormController.submitMessage(' 管理者 ', ' LTを楽しみにしています ');
             Test.stopTest();
         }
 
@@ -22,7 +22,7 @@ private class EventMessageFormControllerTest {
             WHERE Id = :messageId
             LIMIT 1
         ];
-        Assert.areEqual('一般', savedMessage.AttendeeRole__c, 'Attendee role should be trimmed and saved.');
+        Assert.areEqual('管理者', savedMessage.AttendeeRole__c, 'Attendee role should be trimmed and saved.');
         Assert.areEqual(
             'LTを楽しみにしています',
             savedMessage.Enthusiasm__c,
@@ -56,7 +56,7 @@ private class EventMessageFormControllerTest {
         System.runAs(eventUser) {
             Test.startTest();
             try {
-                EventMessageFormController.submitMessage('登壇者', '   ');
+                EventMessageFormController.submitMessage('ユーザー', '   ');
                 Assert.fail('Expected AuraHandledException for blank enthusiasm.');
             } catch (AuraHandledException error) {
                 Assert.isTrue(
