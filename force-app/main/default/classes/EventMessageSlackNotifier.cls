@@ -79,11 +79,31 @@ public with sharing class EventMessageSlackNotifier implements Queueable, Databa
         }));
 
         HttpResponse response = new Http().send(request);
+        validateSlackResponse(response);
+    }
+
+    /** Verifies both the HTTP status and Slack Web API result body. */
+    private static void validateSlackResponse(HttpResponse response) {
         Integer statusCode = response.getStatusCode();
         if (statusCode < 200 || statusCode >= 300) {
             throw new EventMessageSlackNotifierException(
                 'Slack notification failed with status ' + String.valueOf(statusCode) + '.'
             );
+        }
+
+        Map<String, Object> payload;
+        try {
+            payload = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
+        } catch (JSONException error) {
+            throw new EventMessageSlackNotifierException('Slack response was not valid JSON.', error);
+        }
+
+        Boolean ok = payload != null && payload.get('ok') instanceof Boolean
+            ? (Boolean) payload.get('ok')
+            : false;
+        if (!ok) {
+            String slackError = payload == null ? 'unknown_error' : String.valueOf(payload.get('error'));
+            throw new EventMessageSlackNotifierException('Slack notification failed: ' + slackError);
         }
     }
 

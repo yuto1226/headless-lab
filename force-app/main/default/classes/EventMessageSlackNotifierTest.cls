@@ -63,12 +63,39 @@ private class EventMessageSlackNotifierTest {
         Test.stopTest();
     }
 
+    @isTest
+    static void shouldThrowExceptionWhenSlackReturnsOkFalse() {
+        SlackMock mock = new SlackMock(200);
+        mock.ok = false;
+        mock.errorCode = 'channel_not_found';
+        Test.setMock(HttpCalloutMock.class, mock);
+        List<EventMessage__c> messages = new List<EventMessage__c>{
+            TestDataFactory.createEventMessage('ユーザー', 'Slack API本文のエラーを確認します', false)
+        };
+
+        Test.startTest();
+        try {
+            new EventMessageSlackNotifier(messages).execute(null);
+            Assert.fail('Expected Slack notifier exception for Slack ok:false response.');
+        } catch (EventMessageSlackNotifier.EventMessageSlackNotifierException error) {
+            Assert.isTrue(
+                error.getMessage().contains('channel_not_found'),
+                'Exception should include the Slack Web API error code.'
+            );
+        }
+        Test.stopTest();
+    }
+
     private class SlackMock implements HttpCalloutMock {
         private Integer statusCode;
         private String expectedTextFragment;
+        private Boolean ok;
+        private String errorCode;
 
         SlackMock(Integer statusCode) {
             this.statusCode = statusCode;
+            this.ok = statusCode < 300;
+            this.errorCode = 'server_error';
         }
 
         public HttpResponse respond(HttpRequest request) {
@@ -94,7 +121,10 @@ private class EventMessageSlackNotifierTest {
 
             HttpResponse response = new HttpResponse();
             response.setStatusCode(statusCode);
-            response.setBody('{"ok":' + String.valueOf(statusCode < 300) + '}');
+            response.setBody(JSON.serialize(new Map<String, Object>{
+                'ok' => ok,
+                'error' => errorCode
+            }));
             return response;
         }
     }
