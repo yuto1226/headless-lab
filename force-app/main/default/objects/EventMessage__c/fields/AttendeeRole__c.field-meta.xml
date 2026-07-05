@@ -13,6 +13,21 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
+                <fullName>一般</fullName>
+                <default>false</default>
+                <label>一般</label>
+            </value>
+            <value>
+                <fullName>登壇者</fullName>
+                <default>false</default>
+                <label>登壇者</label>
+            </value>
+            <value>
+                <fullName>運営</fullName>
+                <default>false</default>
+                <label>運営</label>
+            </value>
+            <value>
                 <fullName>管理者</fullName>
                 <default>false</default>
                 <label>管理者</label>

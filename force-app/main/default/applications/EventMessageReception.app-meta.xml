@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#0B5CAB</headerColor>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <description>LTイベント受付フォームと投稿済みイベントメッセージを確認するLightningアプリケーション。</description>
+    <formFactors>Large</formFactors>
+    <formFactors>Small</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <label>LTイベント受付</label>
+    <navType>Standard</navType>
+    <tabs>EventMessageForm</tabs>
+    <tabs>EventMessage__c</tabs>
+    <uiType>Lightning</uiType>
+</CustomApplication>

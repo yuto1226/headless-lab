@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
     <labels>
+        <fullName>EventMessageForm_Save_Error</fullName>
+        <categories>EventMessageForm</categories>
+        <language>ja</language>
+        <protected>false</protected>
+        <shortDescription>Event message form save error</shortDescription>
+        <value>意気込みを送信できませんでした。入力内容と権限設定を確認してください。</value>
+    </labels>
+    <labels>
+        <fullName>EventMessageForm_Validation_Error</fullName>
+        <categories>EventMessageForm</categories>
+        <language>ja</language>
+        <protected>false</protected>
+        <shortDescription>Event message form validation error</shortDescription>
+        <value>必須項目を入力してください。</value>
+    </labels>
+    <labels>
         <fullName>HabitTracker_Load_Error</fullName>
         <categories>HabitTracker</categories>
         <language>ja</language>

@@ -1,0 +1,10 @@
+.event-form {
+    display: grid;
+    gap: var(--slds-g-spacing-3, 0.75rem);
+    position: relative;
+}
+
+.event-form__actions {
+    display: flex;
+    justify-content: stretch;
+}
