@@ -41,11 +41,91 @@
                 <lightning-button
                     variant="brand"
                     label="送信する"
+                    icon-name="utility:send"
                     stretch
                     onclick={handleSubmit}
                     disabled={isBusy}>
                 </lightning-button>
             </div>
+
+            <template if:true={isBotReplyVisible}>
+                <section class="event-form__bot-reply slds-media" role="status" aria-live="polite">
+                    <div class="slds-media__figure">
+                        <lightning-icon
+                            icon-name="standard:agent_astro"
+                            alternative-text="Agentforce"
+                            size="medium">
+                        </lightning-icon>
+                    </div>
+                    <div class="slds-media__body">
+                        <p class="event-form__eyebrow">Agentforceからのお礼メッセージが届きました！</p>
+                        <p class="event-form__bot-text">{botReplyMessage}</p>
+                    </div>
+                </section>
+            </template>
+
+            <section class="event-form__timeline" aria-live="polite">
+                <div class="event-form__timeline-header slds-media">
+                    <div class="slds-media__figure">
+                        <lightning-icon
+                            icon-name="standard:real_time"
+                            alternative-text="投稿一覧"
+                            size="small">
+                        </lightning-icon>
+                    </div>
+                    <div class="slds-media__body">
+                        <h2 class="event-form__timeline-title">みんなの投稿</h2>
+                        <p class="event-form__timeline-subtitle">5秒ごとに最新のメッセージを取得します</p>
+                    </div>
+                    <template if:true={isTimelineLoading}>
+                        <lightning-spinner
+                            alternative-text="投稿一覧を更新中"
+                            size="small">
+                        </lightning-spinner>
+                    </template>
+                </div>
+
+                <template if:true={hasMessages}>
+                    <ol class="event-form__timeline-list">
+                        <template for:each={messages} for:item="message">
+                            <li key={message.id} class="event-form__timeline-item">
+                                <article class="slds-media">
+                                    <div class="slds-media__figure">
+                                        <lightning-icon
+                                            icon-name="standard:messaging_user"
+                                            alternative-text="参加者の投稿"
+                                            size="small">
+                                        </lightning-icon>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <div class="event-form__message-meta">
+                                            <span class="event-form__role">{message.attendeeRole}</span>
+                                            <time datetime={message.createdDate}>{message.formattedCreatedDate}</time>
+                                        </div>
+                                        <p class="event-form__enthusiasm">{message.enthusiasm}</p>
+                                        <template if:true={message.hasReply}>
+                                            <div class="event-form__reply slds-media">
+                                                <div class="slds-media__figure">
+                                                    <lightning-icon
+                                                        icon-name="standard:bot"
+                                                        alternative-text="Agentforceの返信"
+                                                        size="x-small">
+                                                    </lightning-icon>
+                                                </div>
+                                                <p class="slds-media__body">{message.replyMessage}</p>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </article>
+                            </li>
+                        </template>
+                    </ol>
+                </template>
+
+                <template if:false={hasMessages}>
+                    <p class="event-form__empty">まだ投稿はありません。</p>
+                </template>
+            </section>
         </div>
     </lightning-card>
 </template>

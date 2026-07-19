@@ -31,6 +31,52 @@ private class EventMessageFormControllerTest {
     }
 
     @IsTest
+    static void shouldReturnTimelineAndSubmittedMessageWhenMessageIdIsProvided() {
+        Test.setMock(HttpCalloutMock.class, new SlackMock());
+        User eventUser = createEventUser();
+        List<EventMessage__c> messages = TestDataFactory.createEventMessages(52, true);
+        EventMessage__c submittedMessage = messages[0];
+        submittedMessage.ReplyMessage__c = 'Agentforceからの返信です。';
+        update submittedMessage;
+
+        EventMessageFormController.MessageFeedResponse response;
+        System.runAs(eventUser) {
+            Test.startTest();
+            response = EventMessageFormController.getMessageFeed(submittedMessage.Id);
+            Test.stopTest();
+        }
+
+        Assert.areEqual(50, response.messages.size(), 'Timeline should return the newest 50 records.');
+        Assert.areEqual(
+            submittedMessage.Id,
+            response.submittedMessage.id,
+            'Submitted message state should be returned for the monitored record.'
+        );
+        Assert.areEqual(
+            'Agentforceからの返信です。',
+            response.submittedMessage.replyMessage,
+            'Submitted message should include the latest AI reply text.'
+        );
+    }
+
+    @IsTest
+    static void shouldReturnTimelineWhenMessageIdIsNull() {
+        Test.setMock(HttpCalloutMock.class, new SlackMock());
+        User eventUser = createEventUser();
+        TestDataFactory.createEventMessages(3, true);
+
+        EventMessageFormController.MessageFeedResponse response;
+        System.runAs(eventUser) {
+            Test.startTest();
+            response = EventMessageFormController.getMessageFeed(null);
+            Test.stopTest();
+        }
+
+        Assert.areEqual(3, response.messages.size(), 'Timeline should include available event messages.');
+        Assert.areEqual(null, response.submittedMessage, 'Submitted message should be empty when no Id is monitored.');
+    }
+
+    @IsTest
     static void shouldThrowExceptionWhenRoleIsBlank() {
         User eventUser = createEventUser();
 
@@ -144,10 +190,12 @@ private class EventMessageFormControllerTest {
                 payload.get('channel'),
                 'Slack payload should use the custom metadata channel ID.'
             );
-            Assert.isTrue(
-                String.valueOf(payload.get('text')).contains(expectedTextFragment),
-                'Slack payload should include the submitted participant role.'
-            );
+            if (!String.isBlank(expectedTextFragment)) {
+                Assert.isTrue(
+                    String.valueOf(payload.get('text')).contains(expectedTextFragment),
+                    'Slack payload should include the submitted participant role.'
+                );
+            }
 
             HttpResponse response = new HttpResponse();
             response.setStatusCode(200);

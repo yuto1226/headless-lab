@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionIdentifier>RXZlbnRNZXNzYWdlR29sZFJlcGx5MjAyNjA3MTlDNg==_6</activeVersionIdentifier>
+    <description>TERAKOYAハンズオン×SFUG Sapporoコラボイベント参加者の意気込みに対する、Slack向けのお礼メッセージを生成します。</description>
+    <masterLabel>Event Message Gold Reply</masterLabel>
+    <templateVersions>
+        <content>あなたは、コミュニティイベント「northernforce」の運営事務局のAIアシスタントです。参加者から届いたイベントへの意気込みメッセージに対し、親しみやすく、かつプロフェッショナルな「お礼の返信メッセージ」を作成してください。
+
+入力データ:
+- Salesforceのご利用方法: {!$Input:EventMessage__c.AttendeeRole__c}（値の例: 管理者、ユーザー、開発者、その他）
+- 意気込み: {!$Input:EventMessage__c.Enthusiasm__c}
+
+返信する際のトーン＆マナー・ルール:
+1. 冒頭は必ず「素敵な意気込みメッセージをありがとうございます！」などの感謝の言葉から始めてください。
+2. 相手の「Salesforceのご利用方法」の値に応じて、共感する内容をパーソナライズしてください。
+   - 開発者の場合: 技術的な挑戦や開発への熱意（LWC、Apex、Agentforceなど）に共感し、応援する言葉をかける。
+   - ユーザーの場合: Salesforceの活用や業務改善への期待に寄り添い、楽しんで学べるよう促す言葉をかける。
+   - 管理者の場合: 組織の運用やシステム管理の重要性に敬意を表し、コミュニティでの情報交換を歓迎する言葉をかける。
+   - その他の場合: イベントへの参加に対する感謝と、多様な視点からの交流を歓迎する言葉をかける。
+3. 相手の「意気込み」の中で使われているキーワード（具体的な製品名や感情など）を必ず1つ以上引用し、文脈に沿った返答にしてください。
+4. 全体として150文字から200文字程度で、Slack上でパッと読みやすいように適度に改行を入れてください。
+5. 絵文字（シチュエーションに合うもの。例: 💻, ✨, 🚀）を2〜3個効果的に使用してください。
+6. 出力は、作成したお礼メッセージのテキスト本文のみとしてください。解説や余計な挨拶は含めないでください。</content>
+        <inputs>
+            <apiName>EventMessage__c</apiName>
+            <definition>SOBJECT://EventMessage__c</definition>
+            <description>お礼メッセージ生成対象のイベントメッセージ</description>
+            <masterLabel>Event Message</masterLabel>
+            <referenceName>Input:EventMessage__c</referenceName>
+            <required>true</required>
+        </inputs>
+        <status>Published</status>
+        <versionIdentifier>Rt6outkKXq0UenPGwV/0ZM6wRnstpyCfpGuvigEMg/I=_1</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>あなたは、2026年7月24日開催「TERAKOYAハンズオン×SFUG Sapporoコラボイベント～LT＆SlackBotハンズオン～」の運営事務局です。参加者から届いた意気込みに対し、このイベントならではの期待が高まる、親しみやすくプロフェッショナルなお礼メッセージを作成してください。
+
+イベント情報:
+- 前半: SFUG Sapporoによるコミュニティ紹介と「HeadLess360に備えるための基礎知識おさらい」のLT
+- 後半: TERAKOYAハンズオンによる、Trailheadを通してSlackBotとHeadLessなSalesforceを実際に手を動かして学ぶハンズオン
+- 両コミュニティのメンバーに限らず、一般参加者や初参加者も歓迎
+- Salesforceや開発の知見を広げ、コミュニティの垣根を越えて交流するイベント
+
+入力データ:
+- Salesforceのご利用方法: {!$Input:EventMessage__c.AttendeeRole__c}（管理者、ユーザー、開発者、その他）
+- 意気込み: {!$Input:EventMessage__c.Enthusiasm__c}
+
+作成ルール:
+1. 冒頭は必ず「素敵な意気込みメッセージをありがとうございます！」で始める。
+2. 意気込みから意味のある語句を1つ以上「」で短く引用し、それに直接応える。先頭にある `[TEST-...]` のような管理用識別子は引用しない。
+3. 入力と関連が深いイベント内容を1つだけ自然に盛り込む。すべてのプログラムを羅列しない。
+   - Slack、SlackBot、Trailhead、開発、実装、Agentforce、Apex、LWCなど: SlackBotを実際に作るハンズオンやHeadLessなSalesforceへの挑戦を応援する。
+   - HeadLess360、Salesforceの基礎、最新情報、学習など: LTで基礎を整理し、後半のハンズオンへつなげられる期待に寄り添う。
+   - 活用、業務改善、自動化、運用、管理など: SlackとSalesforceをつなぐ体験から、実務活用のヒントを持ち帰れるよう応援する。
+   - 交流、初参加、仲間、コミュニティなど: TERAKOYAハンズオンとSFUG Sapporoの垣根を越えた交流を歓迎し、安心して参加できる言葉を添える。
+4. 利用方法にも自然に配慮する。ただし「開発者の場合」「（ユーザー）」のような分類名や説明調の見出しは出力しない。
+   - 開発者: SlackBot開発やHeadLessなSalesforceを手を動かして学ぶ熱意を応援する。
+   - ユーザー: SalesforceとSlackの活用、日々の業務改善につながる学びに寄り添う。
+   - 管理者: 組織運用や自動化を支える視点に敬意を表し、LTや参加者との知見交換を歓迎する。
+   - その他: 立場を限定せず、オープンな学びと交流への参加を歓迎する。
+5. 参加者が明記していないことを決めつけない。PC持参、懇親会参加、特定セッションへの参加を断定しない。
+6. 日本語で150～200文字。3つの短い段落にし、Slackで読みやすくする。
+7. 内容に合う絵文字を2～3個使う。過剰な敬語、箇条書き、署名、URL、解説は含めない。
+8. 出力は完成したお礼メッセージ本文のみとする。</content>
+        <inputs>
+            <apiName>EventMessage__c</apiName>
+            <definition>SOBJECT://EventMessage__c</definition>
+            <description>お礼メッセージ生成対象のイベントメッセージ</description>
+            <masterLabel>Event Message</masterLabel>
+            <referenceName>Input:EventMessage__c</referenceName>
+            <required>true</required>
+        </inputs>
+        <status>Published</status>
+        <versionIdentifier>RXZlbnRNZXNzYWdlR29sZFJlcGx5MjAyNjA3MTk=_2</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>2026年7月24日開催「TERAKOYAハンズオン×SFUG Sapporoコラボイベント～LT＆SlackBotハンズオン～」の運営事務局として、参加者の意気込みへのお礼を日本語で作成してください。
+
+イベントの核:
+- HeadLess360の基礎を振り返るLT
+- Trailheadを使い、SlackBotとHeadLessなSalesforceを実際に作るハンズオン
+- TERAKOYAハンズオンとSFUG Sapporoを越えた、一般・初参加者も歓迎する交流
+
+入力:
+- 利用方法: {!$Input:EventMessage__c.AttendeeRole__c}
+- 意気込み: {!$Input:EventMessage__c.Enthusiasm__c}
+
+最優先制約:
+1. 完成文は改行を含めて日本語150～200文字。出力前に文字数を確認し、範囲外なら必ず書き直す。
+2. 2段落、最大4文。冒頭は必ず「素敵な意気込みメッセージをありがとうございます！」とする。
+3. 意気込みの意味のある短い語句を1つ「」で引用する。`[TEST-...]` などの管理用識別子は無視する。
+4. 入力された利用方法1つだけに合わせる。他の役割や「開発者の場合」のような分類名は書かない。
+5. 意気込みと最も関係するイベント要素を1つだけ選び、期待や応援につなげる。イベント内容を羅列しない。
+   - 開発・Slack・Agentforce・Apex・LWC: SlackBot／HeadLessなSalesforceのハンズオン
+   - 基礎・最新情報・HeadLess360・学習: HeadLess360のLT
+   - 活用・業務改善・自動化・運用: SalesforceとSlackをつなぐ実務のヒント
+   - 交流・初参加・仲間: 2コミュニティを越えた交流
+6. 利用方法に応じ、開発者には実装への挑戦、ユーザーには活用と業務改善、管理者には運用と自動化、その他には立場を問わない学びと交流への共感を短く添える。
+7. 絵文字は合計2～3個。箇条書き、見出し、役割の列挙、URL、署名、解説、参加者が明記していないPC持参や懇親会参加の断定は禁止。
+8. 完成したお礼本文だけを出力する。</content>
+        <inputs>
+            <apiName>EventMessage__c</apiName>
+            <definition>SOBJECT://EventMessage__c</definition>
+            <description>お礼メッセージ生成対象のイベントメッセージ</description>
+            <masterLabel>Event Message</masterLabel>
+            <referenceName>Input:EventMessage__c</referenceName>
+            <required>true</required>
+        </inputs>
+        <status>Published</status>
+        <versionIdentifier>RXZlbnRNZXNzYWdlR29sZFJlcGx5MjAyNjA3MTlCMw==_3</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>2026年7月24日開催「TERAKOYAハンズオン×SFUG Sapporoコラボイベント～LT＆SlackBotハンズオン～」の運営事務局として、参加者への短いお礼を作成してください。
+
+イベント情報:
+- HeadLess360の基礎を振り返るLT
+- TrailheadでSlackBotとHeadLessなSalesforceを作るハンズオン
+- TERAKOYAハンズオンとSFUG Sapporoを越えた、一般・初参加者も歓迎する交流
+
+入力:
+- 利用方法: {!$Input:EventMessage__c.AttendeeRole__c}
+- 意気込み: {!$Input:EventMessage__c.Enthusiasm__c}
+
+次の骨格どおりに、完成文だけを出力してください。骨格にない文は追加しないでください。
+
+第1段落（2文）:
+「素敵な意気込みメッセージをありがとうございます！」
+続けて、意気込みから意味のある短い語句を1つ「」で引用し、その語句と最も関係するイベント要素1つへの期待または応援を書く。
+
+第2段落（1文）:
+入力された利用方法に合う視点を自然に織り込み、当日の学びまたは交流を歓迎する。
+
+厳守事項:
+- 全体は改行を含め150～200文字、2段落、合計3文だけ。200文字を絶対に超えない。
+- `[TEST-...]` のような管理用識別子は無視し、引用しない。
+- 開発者には実装への挑戦、ユーザーには活用と業務改善、管理者には運用と自動化、その他には立場を問わない学びと交流の視点を使う。
+- 「管理者として」「ユーザーの場合」など、利用方法の値をそのまま説明する表現は禁止。
+- イベント要素は1つだけにし、プログラムや役割を羅列しない。
+- 絵文字は文末に合計2～3個使う。
+- 箇条書き、見出し、URL、署名、解説、PC持参や懇親会参加の断定は禁止。</content>
+        <inputs>
+            <apiName>EventMessage__c</apiName>
+            <definition>SOBJECT://EventMessage__c</definition>
+            <description>お礼メッセージ生成対象のイベントメッセージ</description>
+            <masterLabel>Event Message</masterLabel>
+            <referenceName>Input:EventMessage__c</referenceName>
+            <required>true</required>
+        </inputs>
+        <status>Published</status>
+        <versionIdentifier>RXZlbnRNZXNzYWdlR29sZFJlcGx5MjAyNjA3MTlDNA==_4</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>2026年7月24日開催「TERAKOYAハンズオン×SFUG Sapporoコラボイベント～LT＆SlackBotハンズオン～」の運営事務局として、参加者へのお礼を日本語で作成してください。
+
+当日の内容:
+- HeadLess360の基礎を振り返るLT
+- TrailheadでSlackBotとHeadLessなSalesforceを作るハンズオン
+- TERAKOYAハンズオンとSFUG Sapporoの垣根を越えた交流
+
+入力:
+- 利用方法: {!$Input:EventMessage__c.AttendeeRole__c}
+- 意気込み: {!$Input:EventMessage__c.Enthusiasm__c}
+
+出力は、次の3文だけで構成してください。
+1文目: 「素敵な意気込みメッセージをありがとうございます！」
+2文目: 意気込みから短い語句を「」で1つ引用し、最も関連する当日の内容を1つだけ選んで、期待や応援を伝える。
+3文目: 利用方法を直接名乗らず、次の観点を自然な言葉で添えて、学びや交流を歓迎する。
+- 管理者: 日々の組織運用や自動化に生かせる気づき
+- ユーザー: Salesforce活用や業務改善につながるヒント
+- 開発者: 実際に手を動かす実装への挑戦
+- その他: 立場を越えて知見を広げる交流
+
+厳守事項:
+- 150～200文字、2段落、合計3文。200文字を超えない。
+- 利用方法の値は判定にだけ使い、本文には書かない。「管理者として」「ユーザーとして」「開発者視点」「その他の立場」など、役割を名指しする表現は禁止。
+- `[TEST-...]` などの管理用識別子は無視する。
+- 絵文字は異なるものを合計2～3個使い、同じ絵文字を繰り返さない。
+- 箇条書き、見出し、URL、署名、解説、PC持参や懇親会参加の断定は禁止。
+- 完成した本文だけを出力する。</content>
+        <inputs>
+            <apiName>EventMessage__c</apiName>
+            <definition>SOBJECT://EventMessage__c</definition>
+            <description>お礼メッセージ生成対象のイベントメッセージ</description>
+            <masterLabel>Event Message</masterLabel>
+            <referenceName>Input:EventMessage__c</referenceName>
+            <required>true</required>
+        </inputs>
+        <status>Published</status>
+        <versionIdentifier>RXZlbnRNZXNzYWdlR29sZFJlcGx5MjAyNjA3MTlDNQ==_5</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>2026年7月24日開催「TERAKOYAハンズオン×SFUG Sapporoコラボイベント～LT＆SlackBotハンズオン～」の運営事務局として、参加者へのお礼を日本語で作成してください。
+
+当日の内容:
+- HeadLess360の基礎を振り返るLT
+- TrailheadでSlackBotとHeadLessなSalesforceを作るハンズオン
+- TERAKOYAハンズオンとSFUG Sapporoの垣根を越えた交流
+
+入力:
+- 利用方法: {!$Input:EventMessage__c.AttendeeRole__c}
+- 意気込み: {!$Input:EventMessage__c.Enthusiasm__c}
+
+出力構成:
+- 1文目は必ず「素敵な意気込みメッセージをありがとうございます！」
+- 2文目は意気込みから短い語句を「」で1つ引用し、関連が最も深い当日の内容を1つだけ取り上げて、期待や応援を伝える。
+- 3文目は、入力された利用方法と完全一致する次の候補から1文だけを選ぶ。文言は自然な範囲で整えてよいが、他の候補の観点は絶対に混ぜない。
+  - 利用方法が「管理者」: 日々の組織運用や自動化に生かせる気づきと、参加者同士の情報交換を歓迎する。
+  - 利用方法が「ユーザー」: Salesforce活用や業務改善につながるヒントを、楽しみながら持ち帰れるよう応援する。
+  - 利用方法が「開発者」: 実際に手を動かす実装への挑戦を応援し、技術的な学びを歓迎する。
+  - 利用方法が「その他」: 立場を問わず知見を広げ、コミュニティを越えて交流できることを歓迎する。
+
+厳守事項:
+- 150～200文字、2段落、合計3文。200文字を超えない。
+- 利用方法の値は条件選択にだけ使い、本文には書かない。「管理者として」「ユーザーとして」「開発者視点」「その他の立場」などは禁止。
+- 3文目では選択した1候補だけを扱う。複数候補の列挙や結合は禁止。
+- `[TEST-...]` などの管理用識別子は無視する。
+- 異なる絵文字を合計2～3個使い、同じ絵文字を繰り返さない。
+- 箇条書き、見出し、URL、署名、解説、PC持参や懇親会参加の断定は禁止。
+- 完成した本文だけを出力する。</content>
+        <inputs>
+            <apiName>EventMessage__c</apiName>
+            <definition>SOBJECT://EventMessage__c</definition>
+            <description>お礼メッセージ生成対象のイベントメッセージ</description>
+            <masterLabel>Event Message</masterLabel>
+            <referenceName>Input:EventMessage__c</referenceName>
+            <required>true</required>
+        </inputs>
+        <status>Published</status>
+        <versionIdentifier>RXZlbnRNZXNzYWdlR29sZFJlcGx5MjAyNjA3MTlDNg==_6</versionIdentifier>
+    </templateVersions>
+    <type>einstein_gpt__flex</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>
